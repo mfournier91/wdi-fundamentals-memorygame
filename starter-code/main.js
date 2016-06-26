@@ -1,5 +1,5 @@
 
-//Third Function called in isTwoCards
+//This function is called in isTwoCards
 var isMatch = function(twoCards){
 
 	if (twoCards[0] === twoCards[1]) {
@@ -26,11 +26,10 @@ var isMatch = function(twoCards){
 	}
 };
 
-//Second Function called by clicking on cards created in first function
+//Third Function called by clicking on cards created in second function
 function isTwoCards() {
 	cardsInPlay.push(this.getAttribute('data-card')); //add clicked card's data to cardsInPlay
-	//this.innerHTML = '<img src="MadisonTeal/' + this.getAttribute('data-card') + '.png" />' //add background image of given appropriate card data;
-	this.firstChild.setAttribute('style', 'display: block;');
+	this.firstChild.setAttribute('style', 'display: block;'); //allow img to be displayed
 	
 	if (cardsInPlay.length === 2) {
 		isMatch(cardsInPlay);
@@ -42,7 +41,19 @@ function isTwoCards() {
 var cards = ['queen', 'queen', 'king', 'king'];
 var cardsInPlay = [];
 
-//First function
+//First function creates a random order for the cards array
+function shuffle(deck) {
+	newDeck = [];
+	for(i = deck.length; i > 0; i--) {
+		var rand = Math.floor(Math.random()*deck.length);
+		newDeck.push(deck[rand]);
+		deck.splice(rand,1);
+	}
+	return newDeck;
+}
+cards = shuffle(cards);
+
+//Second function creates divs with card classes and data and child img elements with display: none
 var createBoard = function(){
 	var gameBoard = document.getElementById('game-board');
 	
