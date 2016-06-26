@@ -22,14 +22,15 @@ var isMatch = function(twoCards){
 	}
 	var allCards = document.getElementsByClassName('card');
 	for (i = 0; i < allCards.length; i++){
-	allCards[i].innerHTML = ''; //Quirk: sometimes, the second card never appears. InnerHTML is assigned before alert yet this happens.
+	allCards[i].firstChild.setAttribute('style', 'display: none;');
 	}
 };
 
 //Second Function called by clicking on cards created in first function
 function isTwoCards() {
 	cardsInPlay.push(this.getAttribute('data-card')); //add clicked card's data to cardsInPlay
-	this.innerHTML = '<img src="MadisonTeal/' + this.getAttribute('data-card') + '.png" />' //add background image of given appropriate card data;
+	//this.innerHTML = '<img src="MadisonTeal/' + this.getAttribute('data-card') + '.png" />' //add background image of given appropriate card data;
+	this.firstChild.setAttribute('style', 'display: block;');
 	
 	if (cardsInPlay.length === 2) {
 		isMatch(cardsInPlay);
@@ -52,6 +53,7 @@ var createBoard = function(){
 		var cardElement = document.getElementsByTagName('div')[i + 1];
     cardElement.className = "card";
     cardElement.setAttribute('data-card', cards[i]);
+    cardElement.innerHTML = '<img src="MadisonTeal/' + cards[i] + '.png" style="display: none;" />';
     cardElement.addEventListener('click', isTwoCards);
     //console.log(cardElement);
 	}
